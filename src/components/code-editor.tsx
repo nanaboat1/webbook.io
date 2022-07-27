@@ -1,25 +1,58 @@
-import MonacoEditor, { OnMount } from '@monaco-editor/react'; 
+import MonacoEditor, { Monaco } from '@monaco-editor/react'; 
+import { useRef } from 'react';
+import * as monaco from 'monaco-editor/esm/vs/editor/editor.api';
+import prettier from 'prettier';
+import parser from 'prettier/parser-babel';
 import './code-editor.css';
 
 
 interface CodeEditorProps { 
     initialValue: string;
+    onChange(value: string): void; 
 }
 
 
-const CodeEditor: React.FC<CodeEditorProps> = ({initialValue}) => { 
+const CodeEditor: React.FC<CodeEditorProps> = ({onChange, initialValue}: CodeEditorProps) => { 
+    
+    const editorRef = useRef<monaco.editor.IStandaloneCodeEditor>();
+
+
+    const onEditorDidMount = ( 
+        editor: monaco.editor.IStandaloneCodeEditor,
+        _monaco: Monaco
+    ) => { 
+        editorRef.current = editor; 
+        editor.onDidChangeModelContent(()=> onChange(editor.getValue()));
+        editor.getModel()?.updateOptions({tabSize: 2}); 
+    }; 
 
     
     const onFormatClick= () => { 
-        // Feature Deprecated
+        
+        if(editorRef.current) {
+            const unformatted = editorRef.current.getValue(); 
 
-    }
+            const formatting = prettier.format(unformatted, {
+                parser: 'babel',
+                plugins: [parser], 
+                useTabs: false, 
+                semi: true, 
+                singleQuote: true, 
+
+            }).replace(/\n$/, ''); 
+
+            //set the formatted valued back to the editor. 
+            editorRef.current?.setValue(formatting); 
+        }
+
+    };
 
     return (
     <div className="editor-wrapper">
         <button className="button button-format isprimary is-small"
          onClick={onFormatClick}>Format</button>
-    <MonacoEditor 
+    <MonacoEditor
+    onMount={onEditorDidMount}
     value= {initialValue}
     theme="vs-dark" 
     language="javascript"  
