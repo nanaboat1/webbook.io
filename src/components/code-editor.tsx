@@ -12,9 +12,9 @@ interface CodeEditorProps {
 }
 
 
-const CodeEditor: React.FC<CodeEditorProps> = ({onChange, initialValue}: CodeEditorProps) => { 
+const CodeEditor: React.FC<CodeEditorProps> = ({onChange, initialValue}: CodeEditorProps) => { // Type Annotation
     
-    const editorRef = useRef<monaco.editor.IStandaloneCodeEditor>();
+    const editorRef = useRef<monaco.editor.IStandaloneCodeEditor>();// New API for Monaco
 
 
     const onEditorDidMount = ( 
