@@ -10,7 +10,6 @@ const App = () => {
         // Display a Code Cell Component
         <div>
             <Codecell />
-            <Codecell />
         </div> 
 
     );
