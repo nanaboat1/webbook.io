@@ -2,10 +2,12 @@ import { useEffect, useRef} from 'react';
 import './preview.css';
 
 interface PreviewProps {
-    code: string
+    code: string;
+    bundlingStatus: string; 
 
 }
 
+// html that goes into out iframe element
 const html = 
 ` 
    <html> 
@@ -15,12 +17,20 @@ const html =
     <body> 
         <div id="root"> </div> 
         <script> 
+            const handleError = (err) => {
+                const root = document.querySelector('#root');
+                root.innerHTML = '<div style="color: red;"><h4>Runtime Error</h4>' + err + '</div>';
+            };
+            window.addEventListener('error', (event) => {
+                event.preventDefault();
+                handleError(event.error);
+            });
+
             window.addEventListener('message', (event) => { 
                 try {
                     eval(event.data);
                 } catch (err) {
-                    const root = document.querySelector('#root');
-                    root.innerHTML = '<div style="color: red;"><h4>Runtime Error</h4>' + err + '</div>';
+                    handleError(err);
                 }
                 
             }, false); 
@@ -31,7 +41,7 @@ const html =
 `;
 
 
-const Preview: React.FC<PreviewProps> = ({code}) => { 
+const Preview: React.FC<PreviewProps> = ({code, bundlingStatus}) => { 
     const iframe = useRef<any>(); 
     useEffect(() => {
         iframe.current.srcdoc = html;
@@ -48,8 +58,8 @@ const Preview: React.FC<PreviewProps> = ({code}) => {
             ref={iframe} 
             sandbox="allow-scripts" 
             srcDoc={html} 
-        
         />
+        {bundlingStatus && <div className='preview-error'>{bundlingStatus}</div>}
         </div>
 
 };

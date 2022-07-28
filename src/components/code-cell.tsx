@@ -10,12 +10,14 @@ import { useEffect } from 'react';
 
 const Codecell = () => { 
     const [code, setCode] = useState('');
-    const [input, setInput] = useState(''); 
+    const [input, setInput] = useState('');
+    const [err, setErr] = useState('');
 
     useEffect(()=> {
       const timer = setTimeout( async () => { 
         const output = await bundle(input);
-        setCode(output);
+        setCode(output.code);
+        setErr(output.err);
       },750); 
 
       return () => {
@@ -34,16 +36,10 @@ const Codecell = () => {
         onChange={(value) => setInput(value)}
       />
       </Resizable>
-      <Preview code={code} />
+      <Preview code={code} bundlingStatus={err} />
     </div>
     </Resizable>
 }; 
 
 
 export default Codecell;
-
-const a =`      <textarea
-value={input}
-onChange={(e) => setInput(e.target.value)}
-></textarea> 
-`;
