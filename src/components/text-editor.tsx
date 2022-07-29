@@ -1,13 +1,11 @@
 import MDEditor from "@uiw/react-md-editor";
 import { useState, useEffect, useRef } from "react"; 
-
-interface TextEditorProps {
-    value: string; 
-}
+import './text-editor.css';
 
 const TextEditor : React.FC = () => { 
     const [editing, setEditing] = useState(false); 
     const ref = useRef<HTMLDivElement | null>(null);
+    const [value, setValue] = useState('Hey There!')
    
 
     // The State effects of React.js
@@ -30,17 +28,19 @@ const TextEditor : React.FC = () => {
     if (editing) { 
         return (
             <div ref={ref}>
-                <MDEditor/>
+                <MDEditor 
+                     
+                />
             </div>
         );
     }
 
     return( 
         <div onClick={() => setEditing(true)}> 
-            <MDEditor.Markdown source={'# Header'} />
+            <MDEditor.Markdown source={value} />
         </div> 
         );
 
-}
+};
 
 export default TextEditor;
