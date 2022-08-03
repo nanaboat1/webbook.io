@@ -42,15 +42,47 @@ const reducer = produce((
                 return; 
                 
             case ActionType.MOVE_CELL:
+                const { direction } = action.payload; 
 
-                return state; 
+                // find index of cell to be moved.
+                const index = state.order.findIndex((id) =>  id === action.payload.id);
+                
+                // based on chosen direction destination index is calculated. 
+                const targetIndex = direction === 'up' ? index -1 : index + 1; 
 
+                // invalid index.
+                if (targetIndex < 0 || targetIndex > state.order.length -1) { return; } 
+
+                state.order[index] = state.order[targetIndex]; 
+                state.order[targetIndex] = action.payload.id; 
+                return; 
             case ActionType.INSERT_CELL_BEFORE:
-                return state; 
+
+                const cell : Cell = { 
+                    content : '',
+                    type: action.payload.type,
+                    id: randomID()
+                };
+
+                state.data[cell.id] = cell; 
+
+                const foundIndex = state.order.findIndex( id => id === action.payload.id); 
+
+                if ( foundIndex < 0) { 
+                    state.order.push(cell.id);
+                } else {
+                    state.order.splice(foundIndex, 0, cell.id);
+                }
+
+                return; 
             default:
                 return; 
         }
 
 });
+
+const randomID = () => { 
+    return Math.random().toString(36).substring(2,5); 
+}
 
 export default reducer; 
