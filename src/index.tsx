@@ -12,7 +12,7 @@ const App = () => {
 
         // Display a Code Cell Component
       
-        <Provider store={store}> 
+       <Provider store={store}> 
         <div>
             <Codecell /> 
         </div> 
