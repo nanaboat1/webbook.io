@@ -11,12 +11,11 @@ const App = () => {
     return ( 
 
         // Display a Code Cell Component
-      
-       <Provider store={store}> 
+        <Provider store={store}> 
         <div>
             <Codecell /> 
         </div> 
-        </Provider >
+        </Provider>
 
     );
 
@@ -24,5 +23,5 @@ const App = () => {
 }; 
 
 
-ReactDOM.render(<App />, document.querySelector('#root'));
+ReactDOM.render( <Provider store={store}> <App /> </ Provider>, document.querySelector('#root'));
 

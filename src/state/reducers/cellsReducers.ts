@@ -14,23 +14,30 @@ interface CellState {
     }
 
 }
+const initCell : Cell = { 
+    id: 'a2',
+    type: "code",
+    content: "init code"
+
+};
 
 const initialState: CellState = { 
     loading: false,
     error: null,
     order: [],
-    data: {},
+    data: {initCell},
 };
 
 const reducer = produce((
     state: CellState = initialState, // an array that stores all the cell objects currently on screen.
     action: Action // new update for a particular cell
-    ): CellState | void => { 
+    ) : CellState | void => { 
         
         switch(action.type) {
             case ActionType.UPDATE_CELL:
                 const { id, content } = action.payload; 
                 state.data[id].content = content; 
+
                 return;
             case ActionType.DELETE_CELL:
 
@@ -39,6 +46,7 @@ const reducer = produce((
 
                 // remove id of deleted cell
                 state.order = state.order.filter(id => id !== action.payload);
+
                 return; 
                 
             case ActionType.MOVE_CELL:
@@ -55,6 +63,7 @@ const reducer = produce((
 
                 state.order[index] = state.order[targetIndex]; 
                 state.order[targetIndex] = action.payload.id; 
+
                 return; 
             case ActionType.INSERT_CELL_BEFORE:
 
@@ -76,7 +85,8 @@ const reducer = produce((
 
                 return; 
             default:
-                return; 
+
+                return state; /* default state returns initialState  */
         }
 
 });
