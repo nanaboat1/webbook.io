@@ -21,4 +21,18 @@
     background-position: 50%;
     width: 100%;
     position: relative;
+} 
+
+.text-editor em { 
+    font-style: italic; 
 }
+
+.text-editor .wmde-markdown hr { 
+    border-top: 1px solid #dee5ed;
+
+}
+
+.text-editor .wmde-markdown ol { 
+    list-style: decimal;
+} 
+

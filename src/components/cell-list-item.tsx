@@ -6,6 +6,7 @@ interface CellListItemProps {
     cell: Cell;
 }
 
+// individual cells dispatched from store to render
 const CellListItem: React.FC<CellListItemProps> = ({ cell }) => { 
 
     let child: JSX.Element; 

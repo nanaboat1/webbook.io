@@ -24,7 +24,7 @@ export default async (rawCode: string) => {
                 fetchPlugin(rawCode),
             ], 
             define : {
-                'process.env.NODE_ENV' : ' "production"',
+                'process.env.NODE_ENV' : '"production"',
                 global: 'window',
             }
         }); 
