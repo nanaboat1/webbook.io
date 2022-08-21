@@ -14,18 +14,12 @@ interface CellState {
     }
 
 }
-const initCell : Cell = { 
-    id: 'a2',
-    type: "code",
-    content: "init code"
-
-};
 
 const initialState: CellState = { 
     loading: false,
     error: null,
     order: [],
-    data: {initCell},
+    data: {},
 };
 
 const reducer = produce((
@@ -89,7 +83,7 @@ const reducer = produce((
                 return state; /* default state returns initialState  */
         }
 
-});
+}, initialState);
 
 const randomID = () => { 
     return Math.random().toString(36).substring(2,5); 

@@ -8,7 +8,7 @@ const TextEditor : React.FC = () => {
     const [value, setValue] = useState('# Header');
    
 
-    // The State effects of React.js
+    // gets and updates state of text editor
     useEffect(() => {
         const listener = (event: MouseEvent) => {
             
