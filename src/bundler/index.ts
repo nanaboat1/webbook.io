@@ -4,9 +4,7 @@ import { fetchPlugin } from '../plugins/fetch-plugins';
 
 
 let service: esbuild.Service; 
-
-// eslint-disable-next-line import/no-anonymous-default-export
-export default async (rawCode: string) => { 
+const bundle = async (rawCode: string) => { 
     if (!service) {
         service = await esbuild.startService({
             worker : true,
@@ -39,9 +37,8 @@ export default async (rawCode: string) => {
         }
     }
 
+}; 
 
-    
 
-};
-
+export default bundle; 
 

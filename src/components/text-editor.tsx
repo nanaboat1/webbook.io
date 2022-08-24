@@ -3,11 +3,11 @@ import { useState, useEffect, useRef } from "react";
 import './text-editor.css';
 
 const TextEditor : React.FC = () => { 
+
     const [editing, setEditing] = useState(false); 
     const ref = useRef<HTMLDivElement | null>(null);
     const [value, setValue] = useState('# Header');
    
-
     // gets and updates state of text editor
     useEffect(() => {
         const listener = (event: MouseEvent) => {
@@ -26,6 +26,7 @@ const TextEditor : React.FC = () => {
 
 
     if (editing) { 
+        
         return (
             <div className="text-editor" ref={ref}>
                 <MDEditor 
