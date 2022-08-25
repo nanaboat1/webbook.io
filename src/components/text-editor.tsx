@@ -13,6 +13,7 @@ const TextEditor : React.FC = () => {
         const listener = (event: MouseEvent) => {
             
             if (ref.current && event.target && ref.current.contains(event.target as Node)) {
+                
                 return; 
             } 
             setEditing(false);
@@ -45,7 +46,6 @@ const TextEditor : React.FC = () => {
             </div>
         </div> 
         );
-
 };
 
 export default TextEditor;

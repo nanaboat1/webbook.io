@@ -4,8 +4,9 @@ import { store } from './state';
 import CellList from "./components/cell-list";
 import { Buffer } from 'buffer';
 
-// testing react 18. 
+// react 18 new api. 
 import { createRoot } from 'react-dom/client';
+import React from 'react';
 
 const App = () => { 
    
