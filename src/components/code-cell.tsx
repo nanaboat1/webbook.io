@@ -6,16 +6,23 @@ import { useState } from "react";
 import bundle from '../bundler';
 import Resizable from './resizable';
 import { useEffect } from 'react';
+import { Cell } from '../state';
+import { useActions } from '../hooks/use-actions';
+
+interface CodecellProps { 
+  cell: Cell; 
+}
 
 
-const Codecell = () => { 
+const Codecell: React.FC<CodecellProps> = ({ cell }: CodecellProps) => { 
     const [code, setCode] = useState('');
-    const [input, setInput] = useState('');
     const [err, setErr] = useState('');
+
+    const { updateCell }= useActions(); 
 
     useEffect(()=> {
       const timer = setTimeout( async () => { 
-        const output = await bundle(input);
+        const output = await bundle(cell.content);
         setCode(output.code);
         setErr(output.err);
       },750); 
@@ -24,16 +31,16 @@ const Codecell = () => {
         clearTimeout(timer);
       }
 
-    },[input]);
+    },[cell.content]);
   
  
     // Contents of the Webpage.
     return <Resizable direction="vertical"> 
-    <div style={{height: '100%', display: 'flex', flexDirection: 'row'}}>
+    <div style={{height: 'calc(100%-10px)', display: 'flex', flexDirection: 'row'}}>
       <Resizable direction="horizontal"> 
       <CodeEditor
-        initialValue="const a = 1;"
-        onChange={(value) => setInput(value)}
+        initialValue={cell.content}
+        onChange={(value) => updateCell(cell.id, value)}
       />
       </Resizable>
       <Preview code={code} bundlingStatus={err} />

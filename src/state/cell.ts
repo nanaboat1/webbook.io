@@ -1,4 +1,4 @@
-// Define the type of code cell used. 
+// define the type of code cell used. 
 
 export type CellTypes = 'code' | 'text';
 
