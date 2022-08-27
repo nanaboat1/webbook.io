@@ -3,22 +3,22 @@ import { useActions } from '../hooks/use-actions';
 
 
 interface AddCellProps {
-    nextCellId: string | null; 
+    previousCellId: string | null; 
     forceVisible?: boolean; // question mark makes it optional prop component. 
 
 }
 
 
-const AddCell: React.FC<AddCellProps> = ({ nextCellId, forceVisible}: AddCellProps) => { 
+const AddCell: React.FC<AddCellProps> = ({ previousCellId, forceVisible}: AddCellProps) => { 
 
-    const { insertCellBefore } = useActions(); 
+    const { insertCellAfter } = useActions(); 
 
 
 
     return (<div className={`add-cell ${forceVisible && 'force-visible'}`}> 
 
         <div className="add-buttons"> 
-        <button className="button is-rounded is-primary is-small" onClick={() => insertCellBefore(nextCellId,'code')}> 
+        <button className="button is-rounded is-primary is-small" onClick={() => insertCellAfter(previousCellId,'code')}> 
             <span>
                 <i className="fas fa-plus " />
             </span>

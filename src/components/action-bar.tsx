@@ -6,7 +6,7 @@ interface ActionBarProps {
 
 };
 
-const ActionBar: React.FC<ActionBarProps>= ({id}: ActionBarProps) => {
+const ActionBar: React.FC<ActionBarProps>= ({ id }: ActionBarProps) => {
 
     const { moveCell, deleteCell} = useActions(); 
     
