@@ -24,6 +24,7 @@ const App = () => {
 }; 
 
 window.Buffer = window.Buffer || Buffer;
+
 // new react 18 api
 const container = document.getElementById('root');
 const root = createRoot(container!); 
