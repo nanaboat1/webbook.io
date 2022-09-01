@@ -6,7 +6,8 @@ import Resizable from './resizable';
 import { useEffect } from 'react';
 import { Cell } from '../state';
 import { useActions } from '../hooks/use-actions';
-import { useTypedSelector} from '../hooks/use-typed-selector' 
+import { useTypedSelector } from '../hooks/use-typed-selector';
+import { useCulmulativeCode } from '../hooks/use-culmulative-code';
 
 
 interface CodecellProps { 
@@ -16,56 +17,18 @@ interface CodecellProps {
 const Codecell: React.FC<CodecellProps> = ({ cell }: CodecellProps) => { 
     const { updateCell, createBundle }= useActions(); 
     const bundle = useTypedSelector((state) => state.bundles[cell.id]); 
-
-    const cumulativeCode = useTypedSelector( (state) => {
-
-      const { data, order } = state.cells; 
-      const orderedCells = order.map(id => data[id]); 
-
-      const cumulativeCode = [
-        `
-          const show = (value) => {  
-            const root = document.querySelector('#root);
-
-            if ( typeof value !== 'string') { 
-              root.innerHTML = value;
-            } else { 
-
-              if (value.$$typeof && value.props) {
-                ReactDOM.render(value, root);
-              else {
-                root.innerHTML = JSON.stringify(value);
-              }
-            }
-          };
-        `, 
-
-
-      ]; 
-
-      for ( let c of orderedCells) { 
-
-        if( c.type==='code'){ 
-          cumulativeCode.push(c.content);
-        } 
-
-        if (c.id === cell.id) { 
-          break;
-        }
-      } 
-      return cumulativeCode; 
-    }); 
-
+    const culmulativeCode = useCulmulativeCode(cell.id);
+    
     //console.log(cumulativeCode); 
 
     useEffect(()=> { 
       if (!bundle) {
-        createBundle(cell.id, cumulativeCode.join('\n'));
+        createBundle(cell.id, culmulativeCode);
         return; 
       }
 
       const timer = setTimeout( async () => { 
-        createBundle(cell.id, cumulativeCode.join('\n')); 
+        createBundle(cell.id, culmulativeCode); 
 
       },750); 
 
@@ -74,7 +37,7 @@ const Codecell: React.FC<CodecellProps> = ({ cell }: CodecellProps) => {
       }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    },[cumulativeCode.join('\n'), cell.id, createBundle]);
+    },[culmulativeCode, cell.id, createBundle]);
   
  
     // contents of the webpage.
