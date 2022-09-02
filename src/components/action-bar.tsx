@@ -31,6 +31,4 @@ const ActionBar: React.FC<ActionBarProps>= ({ id }: ActionBarProps) => {
     </div>);
 };
 
-
-
 export default ActionBar; 
