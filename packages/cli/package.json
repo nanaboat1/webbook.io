@@ -19,13 +19,12 @@
   "license": "ISC",
   "dependencies": {
     "@iokoko/local-client": "^1.0.0"
-    
   },
   "devDependencies": {
-    "@types/node": "^18.7.14",
-    "typescript": "^4.8.2",
     "@iokoko/local-api": "^1.0.0",
+    "@types/node": "^18.7.14",
     "commander": "^9.4.0",
-    "esbuild": "^0.15.7"
+    "esbuild": "^0.15.7",
+    "typescript": "^4.8.2"
   }
 }
