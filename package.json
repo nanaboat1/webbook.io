@@ -11,6 +11,7 @@
     "start": "lerna run start --parallel"
   },
   "dependencies": {
+    "@iokoko/local-client": "^1.0.0",
     "iokoko": "^1.0.0"
   }
 }
