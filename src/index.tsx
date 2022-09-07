@@ -12,12 +12,12 @@ import React from 'react';
 const App = () => { 
    
     return ( 
-
+        
         // display cell list
         <Provider store={store}> 
             <CellList /> 
         </Provider>
-
+        
     );
 
 
